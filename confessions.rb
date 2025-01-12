@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-puts "Welcome"
-
 require 'discordrb'
 
 bot = Discordrb::Bot.new(token: File.read('token.secret').strip, intents: [:server_messages])

@@ -1,8 +1,10 @@
-GEM
-  remote: https://rubygems.org/
+GIT
+  remote: https://github.com/shardlab/discordrb.git
+  revision: 6a8ea1253bec2c6efc6cc1cb0d565a8af205fb39
+  branch: main
   specs:
-    base64 (0.2.0)
     discordrb (3.5.0)
+      base64 (~> 0.2.0)
       discordrb-webhooks (~> 3.5.0)
       ffi (>= 1.9.24)
       opus-ruby
@@ -10,6 +12,11 @@ GEM
       websocket-client-simple (>= 0.3.0)
     discordrb-webhooks (3.5.0)
       rest-client (>= 2.0.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    base64 (0.2.0)
     domain_name (0.6.20240107)
     event_emitter (0.2.6)
     ffi (1.17.1)
@@ -61,7 +68,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  discordrb
+  discordrb!
 
 BUNDLED WITH
    2.6.2
