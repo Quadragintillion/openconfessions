@@ -6,24 +6,6 @@ bot = Discordrb::Bot.new(token: File.read('token.secret').strip, intents: [:serv
 
 # Command registrars
 
-bot.register_application_command(:example, 'Example commands', server_id: ENV.fetch('SLASH_COMMAND_BOT_SERVER_ID', nil)) do |cmd|
-  cmd.subcommand_group(:fun, 'Fun things!') do |group|
-    group.subcommand('8ball', 'Shake the magic 8 ball') do |sub|
-      sub.string('question', 'Ask a question to receive wisdom', required: true)
-    end
-
-    group.subcommand('java', 'What if it was java?')
-
-    group.subcommand('calculator', 'do math!') do |sub|
-      sub.integer('first', 'First number')
-      sub.string('operation', 'What to do', choices: { times: '*', divided_by: '/', plus: '+', minus: '-' })
-      sub.integer('second', 'Second number')
-    end
-
-    group.subcommand('button-test', 'Test a button!')
-  end
-end
-
 bot.register_application_command(:spongecase, 'Are you mocking me?', server_id: ENV.fetch('SLASH_COMMAND_BOT_SERVER_ID', nil)) do |cmd|
   cmd.string('message', 'Message to spongecase')
   cmd.boolean('with_picture', 'Show the mocking sponge?')
@@ -43,12 +25,73 @@ bot.application_command(:spongecase) do |event|
   event.send_message(content: 'https://pyxis.nymag.com/v1/imgs/09c/923/65324bb3906b6865f904a72f8f8a908541-16-spongebob-explainer.rsquare.w700.jpg') if event.options['with_picture']
 end
 
+##
+# CONFESSION COMMAND
+##
+
+#bot.application_command(:confess) do |event|
+#  bot.send_message(
+#    event.channel.id,
+#    event.options['confession'],
+#    components: [
+#      Discordrb::Components::ActionRow.new(
+#        components: [
+#          Discordrb::Components::Button.new('Submit a confession!', style: :primary, custom_id: 'submit_button:1'),
+#          Discordrb::Components::Button.new('Reply', style: :secondary, custom_id: 'reply_button:1')
+#        ]
+#      )
+#    ]
+#  )
+#  event.respond(content: 'Your confession has been submitted!', ephemeral: true)
+#end
+
 bot.application_command(:confess) do |event|
-  bot.send_message(event.channel, event.options['confession'])
+  components = [
+    'type' => 1,
+    'components' => [
+#    Discordrb::Components::Button.new('Submit a confession!', style: :primary, custom_id: 'submit_button:1'),
+#    Discordrb::Components::Button.new('Reply', style: :secondary, custom_id: 'reply_button:1')
+    {
+      'type' => 2,
+      'label' => 'Submit a confession!',
+      'style' => 1,
+      'custom_id' => 'submit_button:1'
+    },
+    {
+      'type' => 2,
+      'label' => 'Reply',
+      'style' => 2,
+      'custom_id' => 'reply_button:1'
+    }
+    ]
+  ]
+
+  bot.send_message(
+    event.channel.id,
+    event.options['confession'],
+    false,
+    nil,
+    event.options['attachment'],
+    nil,
+    nil,
+    [
+      Discordrb::Components::ActionRow.new(
+        #Discordrb::Components::Button.new('Submit a confession!', style: :primary, custom_id: 'submit_button:1'),
+        #Discordrb::Components::Button.new('Reply', style: :secondary, custom_id: 'reply_button:1')
+        {'components' => components}, bot
+      )
+    ]
+  )
+  
   event.respond(content: 'Your confession has been submitted!', ephemeral: true)
 end
 
-bot.button(custom_id: /^test_button:/) do |event|
+
+
+
+
+
+bot.button(custom_id: /^submit_button:/) do |event|
   num = event.interaction.button.custom_id.split(':')[1].to_i
 
   event.update_message(content: num.to_s) do |_, view|
