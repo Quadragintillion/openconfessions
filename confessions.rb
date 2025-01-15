@@ -11,7 +11,7 @@ bot = Discordrb::Bot.new(token: File.read('token.secret').strip, intents: [:serv
 #  bot.delete_application_command command.id
 #end
 
-bot.register_application_command(:confess, 'Submit a confession!', server_id: ENV.fetch('SLASH_COMMAND_BOT_SERVER_ID', nil)) do |cmd|
+bot.register_application_command(:confess, 'Submit a confession!') do |cmd|
   cmd.string('confession', 'The text of the confession', required: true)
 #  cmd.attachment('attachment', 'Optional file to attach with the confession', required: false)
 end
@@ -93,17 +93,6 @@ bot.button(custom_id: 'reply_continue_button') do |event|
   event.show_modal(title: 'Replying to a confession', custom_id: 'reply_continue_modal') do |modal|
     modal.row do |r|
       r.text_input(**MODAL_REPLY_TEXT_INPUT)
-    end
-  end
-end
-
-bot.button(custom_id: 'test_button') do |event|
-  num = event.interaction.button.custom_id.split(':')[1].to_i
-
-  event.update_message(content: num.to_s) do |_, view|
-    view.row do |row|
-      row.button(label: '-', style: :danger, custom_id: "test_button:#{num - 1}")
-      row.button(label: '+', style: :success, custom_id: "test_button:#{num + 1}")
     end
   end
 end
