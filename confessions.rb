@@ -132,4 +132,5 @@ bot.modal_submit(custom_id: 'reply_continue_modal') do |event|
     event.respond(**IMAGE_INVALID_MESSAGE)
   end
 end
+
 bot.run
