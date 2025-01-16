@@ -1,4 +1,4 @@
-# openconfessions
+# OpenConfessions
 An open-source confessions Discord bot for anonymous messaging
 
 [Invite to your server!](https://discord.com/oauth2/authorize?&client_id=1327822157304037480&scope=bot)
