@@ -31,7 +31,6 @@ def send_confession_reply(channel, reply_message, confession = nil, create_threa
   reference = nil
   if confession != nil
     if create_thread_if_not_nil
-      puts confession.class
       thread = confession.to_message.thread
       if thread == nil
         channel = channel.start_thread('Confession Replies', 10080, message: confession)
