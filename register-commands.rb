@@ -9,5 +9,5 @@ end
 
 bot.register_application_command(:confess, 'Submit a confession!') do |cmd|
   cmd.string('confession', 'The text of the confession', required: true)
-  #cmd.attachment('attachment', 'Optional file to attach with the confession', required: false)
+  cmd.string('image', 'Optional image/GIF to attach to the confession', required: false)
 end
