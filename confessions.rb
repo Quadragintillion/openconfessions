@@ -18,7 +18,7 @@ MODAL_REPLY_TEXT_INPUT = {label: 'Reply message', style: :paragraph, custom_id: 
 
 def send_confession_message(channel, message)
   channel.send_embed('', nil, nil) do |embed, view|
-    embed.title = 'Anonymous Confession'
+    embed.title = 'Anonymous Message'
     embed.description = message
     view.row do |r|
       r.button(**CONFESS_BUTTON)
@@ -33,7 +33,7 @@ def send_confession_reply(channel, reply_message, confession = nil, create_threa
     if create_thread_if_not_nil
       thread = confession.to_message.thread
       if thread == nil
-        channel = channel.start_thread('Confession Replies', 10080, message: confession)
+        channel = channel.start_thread('Replies', 10080, message: confession)
       else channel = thread end
     else
       reference = confession
