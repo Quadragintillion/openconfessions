@@ -10,7 +10,7 @@ CONFESS_BUTTON = {label: 'Confess', style: :primary, custom_id: 'confess_button'
 REPLY_BUTTON = {label: 'Reply', style: :secondary, custom_id: 'reply_button'}
 REPLY_CONTINUE_BUTTON = {label: 'Reply', style: :secondary, custom_id: 'reply_continue_button'}
 CONFESSION_SUBMIT_MESSAGE = {content: 'Your confession has been submitted!', ephemeral: true}
-REPLY_SUBMIT_MESSAGE = {content: 'Your reply has been posted! (If you pressed the reply button on the main message and a thread exists, no it hasn\'t. I\'m working on fixing that :P)', ephemeral: true}
+REPLY_SUBMIT_MESSAGE = {content: 'Your reply has been posted!', ephemeral: true}
 MODAL_CONFESSION_TEXT_INPUT = {label: 'Confession message', style: :paragraph, custom_id: 'confession', required: true}
 MODAL_REPLY_TEXT_INPUT = {label: 'Reply message', style: :paragraph, custom_id: 'reply', required: true}
 
@@ -31,11 +31,11 @@ def send_confession_reply(channel, reply_message, confession = nil, create_threa
   reference = nil
   if confession != nil
     if create_thread_if_not_nil
-      begin
+      puts confession.class
+      thread = confession.to_message.thread
+      if thread == nil
         channel = channel.start_thread('Confession Replies', 10080, message: confession)
-      rescue Discordrb::Errors::UnknownError
-        return
-      end
+      else channel = thread end
     else
       reference = confession
     end
