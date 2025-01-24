@@ -9,6 +9,8 @@ There already exists a confessions bot. However, it's proprietary, and they stor
 
 Additionally, the existing has some limitations such as 2 maximum channels that you have to pay to bypass. This bot aims to provide the same features they charge for, for free.
 
+This bot was made for people to anonymously talk about things they feel uneasy about to friends (essentially anonymous group therapy) but it can be used for a lot of things.
+
 ## Self-Hosting
 
 1. Clone this repository on your own server using `git clone https://github.com/Quadragintillion/openconfessions`
